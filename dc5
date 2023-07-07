@@ -1,0 +1,3 @@
+FROM ubuntu:latest
+RUN touch 1.txt
+RUN mkdir dir1

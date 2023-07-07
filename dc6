@@ -1,0 +1,10 @@
+FROM maven:3.8.2-openjdk-8 as ref2
+RUN mkdir /usr/src/mymaven/
+WORKDIR /usr/src/mymaven/
+COPY . .
+RUN mvn install package
+
+FROM tomcat:jre8-temurin-focal
+WORKDIR webapps
+COPY --from=ref2 /usr/src/mymaven/target/hello-world-war-1.0.1.war .
+RUN rm -rf ROOT && mv hello-world-war-1.0.1.war ROOT.war
